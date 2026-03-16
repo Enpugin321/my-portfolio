@@ -226,6 +226,7 @@ const CustomHoverTick = (props: CustomHoverTickProps) => {
           width: "100%",
           height: "100%",
           boxSizing: "border-box",
+          zIndex: 100,
         }}
       >
         ${value}
@@ -322,7 +323,7 @@ export function ChartAreaInteractive({
       <CardContent className="px-2 sm:px-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-[350px] w-full"
         >
           <AreaChart
             ref={charRef}
@@ -385,14 +386,7 @@ export function ChartAreaInteractive({
                 />
               }
             />
-            {activePoint && (
-              <ReferenceLine
-                y={activePoint.price}
-                stroke="var(--Accent, #008BF5)"
-                strokeDasharray="2 10"
-                label={<CustomHoverTick value={activePoint.price} />}
-              />
-            )}
+
             <Area
               dataKey="price"
               type="natural"
@@ -401,6 +395,14 @@ export function ChartAreaInteractive({
               strokeWidth={2}
               activeDot={{ r: 4 }}
             />
+            {activePoint && (
+              <ReferenceLine
+                y={activePoint.price}
+                stroke="var(--Accent, #008BF5)"
+                strokeDasharray="2 10"
+                label={<CustomHoverTick value={activePoint.price} />}
+              />
+            )}
           </AreaChart>
         </ChartContainer>
       </CardContent>
