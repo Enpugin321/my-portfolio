@@ -62,7 +62,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .hero-gradient {
+  .hero-gradient-overlay {
     background: radial-gradient(circle at 50% 50%, #1e3a8a 0%, #0a0a0c 70%);
   }
 

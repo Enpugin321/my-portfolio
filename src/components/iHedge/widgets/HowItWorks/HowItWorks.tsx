@@ -7,6 +7,7 @@ import {
   ArrowIcon,
   Button,
 } from "@/components/iHedge/ui";
+import Link from "next/link";
 
 const steps: { icon: React.ReactNode; title: string; description: string }[] = [
   {
@@ -61,7 +62,7 @@ export default function HowItWorks() {
               <h6 className="font-medium text-[20px] lg:text-[28px] leading-tight">
                 {step.title}
               </h6>
-              <p className="text-second text-base lg:text-xl leading-tight">
+              <p className="text-second text-base leading-tight">
                 {step.description}
               </p>
             </div>
@@ -70,15 +71,17 @@ export default function HowItWorks() {
       </div>
 
       <div className="w-full mt-10 flex justify-center">
-        <Button
-          variant="ghost"
-          className="h-fit sm:pt-[5px] sm:pr-[5px] sm:pb-[4px] sm:pl-[34px] pt-[5px] pr-[5px] pb-[4px] pl-[34px] rounded-[20px] gap-[15px] bg-[#008BF5] shadow-[0px_10px_54px_0px_#008BF580] text-white hover:bg-[#008BF5]/90 hover:text-white"
-        >
-          Deposit USDT
-          <div className="p-[23px] bg-[#0074CC] rounded-[15px]">
-            <ArrowIcon className="w-6 h-6" />
-          </div>
-        </Button>
+        <Link href="/ihedge/preview/account">
+          <Button
+            variant="ghost"
+            className="h-fit sm:pt-[5px] sm:pr-[5px] sm:pb-[4px] sm:pl-[34px] pt-[5px] pr-[5px] pb-[4px] pl-[34px] rounded-[20px] gap-[15px] bg-[#008BF5] shadow-[0px_10px_54px_0px_#008BF580] text-white hover:bg-[#008BF5]/90 hover:text-white"
+          >
+            Deposit USDT
+            <div className="p-[23px] bg-[#0074CC] rounded-[15px]">
+              <ArrowIcon className="w-6 h-6" />
+            </div>
+          </Button>
+        </Link>
       </div>
     </div>
   );

@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/iHedge/ui";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { PreviewNavbar } from "./PreviewNavbar";
 
 interface Props {
   className?: string;
@@ -10,6 +13,11 @@ interface Props {
 
 export const Navbar: React.FC<Props> = ({ className }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/ihedge/preview")) {
+    return <PreviewNavbar className={className} />;
+  }
 
   return (
     <header className={cn(className, "w-full px-5 xl:px-[100px] py-[11px]")}>
@@ -43,24 +51,28 @@ export const Navbar: React.FC<Props> = ({ className }) => {
             />
           </button>
           <div className="md:hidden mt-1.5 sm:mt-0">
-            <Image
-              src="/assets/desktop-logo.svg"
-              alt="Logo"
-              width={100}
-              height={100}
-            />
+            <Link href="/ihedge">
+              <Image
+                src="/assets/desktop-logo.svg"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
+            </Link>
           </div>
         </div>
 
         {/* Desktop / Laptop nav links */}
         <ul className="hidden md:flex items-center gap-6 lg:gap-16 text-base lg:text-xl">
           <li className="mr-5">
-            <Image
-              src="/assets/desktop-logo.svg"
-              alt="Logo"
-              width={100}
-              height={100}
-            />
+            <Link href="/ihedge">
+              <Image
+                src="/assets/desktop-logo.svg"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
+            </Link>
           </li>
           <li>
             <a href="#">About us</a>
@@ -78,9 +90,14 @@ export const Navbar: React.FC<Props> = ({ className }) => {
 
         {/* Desktop / Laptop CTA */}
         <div className="shrink-0">
-          <Button variant="default" className="text-[#47AFFF]">
-            Connect wallet
-          </Button>
+          <Link href="/ihedge/preview">
+            <Button
+              variant="default"
+              className="text-[#47AFFF] hover:cursor-pointer"
+            >
+              Dashboard
+            </Button>
+          </Link>
         </div>
       </nav>
 

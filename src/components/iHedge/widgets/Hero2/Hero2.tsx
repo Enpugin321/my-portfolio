@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import styles from "./Hero2.module.scss";
 import { Button } from "@/components/iHedge/ui";
 import { ArrowIcon } from "@/components/iHedge/ui";
+import Link from "next/link";
 
 interface Props {
   className?: string;
@@ -28,15 +29,17 @@ export const Hero2: React.FC<Props> = ({ className }) => {
             capital
           </span>
 
-          <Button
-            toColor="[#ED910F]"
-            className="text-[#ED910F] h-fit pt-[5px] pb-[9px] pr-[5px] pl-[23px] sm:pt-[5px] sm:pb-[9px] sm:pr-[5px] sm:pl-[23px]"
-          >
-            Get Started
-            <div className="p-[23px] bg-[#47AFFF03] rounded-[15px] shadow-[inset_0px_0px_34px_0px_#47AFFF7D]">
-              <ArrowIcon className="w-6 h-6" />
-            </div>
-          </Button>
+          <Link href="/ihedge/preview/account">
+            <Button
+              toColor="[#ED910F]"
+              className="text-[#ED910F] h-fit pt-[5px] pb-[9px] pr-[5px] pl-[23px] sm:pt-[5px] sm:pb-[9px] sm:pr-[5px] sm:pl-[23px]"
+            >
+              Get Started
+              <div className="p-[23px] bg-[#47AFFF03] rounded-[15px] shadow-[inset_0px_0px_34px_0px_#47AFFF7D]">
+                <ArrowIcon className="w-6 h-6" />
+              </div>
+            </Button>
+          </Link>
         </div>
       </div>
 

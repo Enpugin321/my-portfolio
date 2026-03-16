@@ -18,8 +18,8 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
       }}
     >
       <div className="text-center z-20">
-        <h4 className="font-medium text-[44px]">Strategy</h4>
-        <p className="block max-w-[479px] text-center text-xl leading-tight text-[#5D6172]">
+        <h4 className="font-medium text-[clamp(32px,8vw,44px)]">Strategy</h4>
+        <p className="block max-w-[479px] text-center text-[clamp(16px,4vw,20px)] leading-tight text-[#5D6172] px-4">
           Alpha Vault is an actively managed crypto fund that allocates capital
           across a wide range of digital assets and trading strategies.
         </p>
@@ -88,15 +88,13 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
       <img
         src="/assets/strategy/sunlight_effect.png"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover 
-             pointer-events-none select-none 
-             mix-blend-screen"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none mix-blend-screen"
       />
 
-      <span className="text-background leading-tight font-medium text-[44px]">
+      <span className="text-background leading-tight font-medium text-[clamp(28px,8vw,44px)]">
         Expected Annual Return
       </span>
-      <p className="leading-[1.15] text-white/40 text-[240px]">40%</p>
+      <p className="leading-[1.15] text-white/40 text-[clamp(140px,30vw,240px)]">40%</p>
 
       {/* Right block placeholder */}
     </div>
@@ -124,14 +122,14 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
             "h-[420px] rounded-2xl bg-white shadow-md p-6 flex flex-col justify-between",
           )}
         >
-          <span className="text-[44px] font-medium">Minimum investment</span>
-          <div className="flex items-center">
-            <span className="2xl:text-[190px] tracking-[-5%] text-[160px] leading-tight text-project-accent">
+          <span className="text-[clamp(28px,8vw,44px)] font-medium">Minimum investment</span>
+          <div className="flex items-center gap-2">
+            <span className="2xl:text-[190px] tracking-[-5%] text-[clamp(100px,25vw,160px)] leading-tight text-project-accent">
               100
             </span>
             <div className="flex flex-col items-center">
-              <USDTIcon className="text-project-accent w-[92px] h-[76px]" />
-              <span className="text-[44px] leading-tight text-project-accent font-bold">
+              <USDTIcon className="text-project-accent w-[clamp(50px,12vw,92px)] h-[clamp(42px,10vw,76px)]" />
+              <span className="text-[clamp(24px,6vw,44px)] leading-tight text-project-accent font-bold">
                 USDT
               </span>
             </div>
@@ -147,7 +145,7 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
         >
           <div className={styles.dotPattern} />
           <div className={styles.dotCornerFade} />
-          <span className="relative text-[44px] font-medium z-10">Fees</span>
+          <span className="relative text-[clamp(28px,8vw,44px)] font-medium z-10">Fees</span>
 
           {/* Performance fee label + dashed SVG connector — flex row */}
           <div
@@ -179,8 +177,8 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
               className="absolute top-0 translate-y-[-50%] flex flex-col leading-tight"
               style={{ left: "calc(17px + 33% / 2 + 62px)" }}
             >
-              <span className="text-[#5D6172] text-xl">Performance fee:</span>
-              <span className="text-[#1A1D2E] text-xl font-medium">
+              <span className="text-[#5D6172] text-[clamp(14px,4vw,20px)] whitespace-nowrap">Performance fee:</span>
+              <span className="text-[#1A1D2E] text-[clamp(14px,4vw,20px)] font-medium whitespace-nowrap">
                 30% (High-Water Mark)
               </span>
             </div>
@@ -247,8 +245,8 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
               className="absolute top-0 translate-y-[50%] flex flex-col leading-tight"
               style={{ left: "calc(33% + 79px)" }}
             >
-              <span className="text-[#5D6172] text-xl">Management fee:</span>
-              <span className="text-[#1A1D2E] text-xl font-medium">
+              <span className="text-[#5D6172] text-[clamp(14px,4vw,20px)] whitespace-nowrap">Management fee:</span>
+              <span className="text-[#1A1D2E] text-[clamp(14px,4vw,20px)] font-medium whitespace-nowrap">
                 3% per year
               </span>
             </div>
@@ -263,7 +261,7 @@ export function FeaturesGrid({ className }: FeaturesGridProps) {
             "h-[420px] flex flex-col justify-between items-start rounded-2xl bg-white shadow-md p-6 relative overflow-hidden",
           )}
         >
-          <span className="text-[44px] font-medium">Risk</span>
+          <span className="text-[clamp(28px,8vw,44px)] font-medium">Risk</span>
           <Image
             className="absolute top-[34px] left-1/2 -translate-x-1/2"
             src="/assets/strategy/encrypted.png"

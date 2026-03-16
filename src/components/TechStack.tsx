@@ -15,10 +15,7 @@ export default function TechStack() {
     () => {
       const elements = gsap.utils.toArray(".bento-item");
 
-      // Animate cards
       gsap.to(elements, {
-        // Можно просто класс, если есть scope
-        y: 60,
         opacity: 1,
         duration: 1,
         stagger: 0.15,
@@ -26,22 +23,6 @@ export default function TechStack() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 85%",
-
-          toggleActions: "play none none none",
-        },
-      });
-
-      // Animate heading elements
-      gsap.from(".heading-anim", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 90%",
-          toggleActions: "play none none none",
         },
       });
 

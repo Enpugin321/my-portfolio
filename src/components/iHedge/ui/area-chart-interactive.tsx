@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ReferenceLine } from "recharts"
+import * as React from "react";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  ReferenceLine,
+} from "recharts";
 
 import {
   Card,
@@ -9,16 +16,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/iHedge/ui/card"
+} from "@/components/iHedge/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/iHedge/ui/chart"
+} from "@/components/iHedge/ui/chart";
 
-
-export const description = "An interactive area chart"
+export const description = "An interactive area chart";
 
 const chartData = [
   { date: "2024-04-01", desktop: 222, mobile: 150 },
@@ -112,14 +118,14 @@ const chartData = [
   { date: "2024-06-28", desktop: 149, mobile: 200 },
   { date: "2024-06-29", desktop: 103, mobile: 160 },
   { date: "2024-06-30", desktop: 446, mobile: 400 },
-]
+];
 
 const chartConfig = {
   price: {
     label: "Price",
     color: "var(--color-project-accent)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 interface TickProps {
   x?: number;
@@ -138,7 +144,7 @@ const CustomTick = (props: TickProps) => {
 
   // Emulating the requested CSS:
   // gap: 10px (we'll implement this by adding an x-offset)
-  // borderRadius: "30px 5px 5px 30px" 
+  // borderRadius: "30px 5px 5px 30px"
   // padding: "4px 8px 4px 8px"
   // Assuming text height is roughly 12px.
   // Total rect height ~ 12 + 4 + 4 = 20px
@@ -148,33 +154,33 @@ const CustomTick = (props: TickProps) => {
   const h = 22; // Height
   const w = 46; // Width
   const rL = 11; // Left radius (max half of height for pill shape)
-  const rR = 5;  // Right radius
-  
+  const rR = 5; // Right radius
+
   // Custom SVG path for independent corner radii
   const pathData = `
-    M ${gap + rL} ${-h/2}
+    M ${gap + rL} ${-h / 2}
     H ${gap + w - rR}
-    A ${rR} ${rR} 0 0 1 ${gap + w} ${-h/2 + rR}
-    V ${h/2 - rR}
-    A ${rR} ${rR} 0 0 1 ${gap + w - rR} ${h/2}
+    A ${rR} ${rR} 0 0 1 ${gap + w} ${-h / 2 + rR}
+    V ${h / 2 - rR}
+    A ${rR} ${rR} 0 0 1 ${gap + w - rR} ${h / 2}
     H ${gap + rL}
-    A ${rL} ${rL} 0 0 1 ${gap} ${h/2 - rL}
-    V ${-h/2 + rL}
-    A ${rL} ${rL} 0 0 1 ${gap + rL} ${-h/2}
+    A ${rL} ${rL} 0 0 1 ${gap} ${h / 2 - rL}
+    V ${-h / 2 + rL}
+    A ${rL} ${rL} 0 0 1 ${gap + rL} ${-h / 2}
     Z
   `;
 
   return (
     <g transform={`translate(${x},${y})`}>
-      <path 
+      <path
         d={pathData}
         fill="#f8f9fa" // Very light gray background
       />
-      <text 
-        x={gap + w / 2} 
-        y={4} 
+      <text
+        x={gap + w / 2}
+        y={4}
         fill="#0f172a" // Text color
-        textAnchor="middle" 
+        textAnchor="middle"
         fontSize={12}
         fontWeight={500}
       >
@@ -191,102 +197,125 @@ interface CustomHoverTickProps {
 
 const CustomHoverTick = (props: CustomHoverTickProps) => {
   const { viewBox, value } = props;
+
   if (!viewBox) return null;
   const gap = 10;
   const w = 46;
   const h = 22;
 
   return (
-    <foreignObject 
-      x={viewBox.width + viewBox.x + gap} 
-      y={viewBox.y - h / 2} 
-      width={w} 
+    <foreignObject
+      x={viewBox.width + viewBox.x + gap}
+      y={viewBox.y - h / 2}
+      width={w}
       height={h}
-      style={{ overflow: 'visible' }}
+      style={{ overflow: "visible" }}
     >
-      <div style={{
-        background: 'var(--Accent, #008BF5)',
-        boxShadow: '0px 6px 24px 0px #008BF54D, 0px -3px 7px 0px #FFFFFF75 inset',
-        borderRadius: '30px 5px 5px 30px',
-        color: '#fff',
-        fontSize: '12px',
-        fontWeight: 500,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%',
-        boxSizing: 'border-box'
-      }}>
+      <div
+        style={{
+          background: "var(--Accent, #008BF5)",
+          boxShadow:
+            "0px 6px 24px 0px #008BF54D, 0px -3px 7px 0px #FFFFFF75 inset",
+          borderRadius: "30px 5px 5px 30px",
+          color: "#fff",
+          fontSize: "12px",
+          fontWeight: 500,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          boxSizing: "border-box",
+        }}
+      >
         ${value}
       </div>
     </foreignObject>
   );
 };
 
-export function ChartAreaInteractive() {
-  const [timeRange, setTimeRange] = React.useState("30d")
-  const [hoveredDate, setHoveredDate] = React.useState<string | null>(null)
+export function ChartAreaInteractive({
+  externalData = [],
+  timeRange = "30d",
+  onTimeRangeChange,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  externalData?: any[];
+  timeRange?: string;
+  onTimeRangeChange?: (range: string) => void;
+}) {
+  // timeRange is controlled by props now
+  const [hoveredDate, setHoveredDate] = React.useState<string | null>(null);
+  const charRef = React.useRef<SVGSVGElement>(null);
 
   const filteredData = React.useMemo(() => {
-    return chartData.filter((item) => {
-      const date = new Date(item.date)
-      const referenceDate = new Date("2024-06-30")
-      let daysToSubtract = 30
-      if (timeRange === "30d") {
-        daysToSubtract = 30
-      } else if (timeRange === "7d") {
-        daysToSubtract = 7
-      } else if (timeRange === "1d") {
-        daysToSubtract = 1
-      }
-      const startDate = new Date(referenceDate)
-      startDate.setDate(startDate.getDate() - daysToSubtract)
-      return date >= startDate
-    }).map((item) => ({ date: item.date, price: item.desktop }))
+    return chartData
+      .filter((item) => {
+        const date = new Date(item.date);
+        const referenceDate = new Date("2024-06-30");
+        let daysToSubtract = 30;
+        if (timeRange === "30d") {
+          daysToSubtract = 30;
+        } else if (timeRange === "7d") {
+          daysToSubtract = 7;
+        } else if (timeRange === "1d") {
+          daysToSubtract = 1;
+        }
+        const startDate = new Date(referenceDate);
+        startDate.setDate(startDate.getDate() - daysToSubtract);
+        return date >= startDate;
+      })
+      .map((item) => ({ date: item.date, price: item.desktop }));
   }, [timeRange]);
 
   const activePoint = React.useMemo(() => {
     if (hoveredDate) {
-      const point = filteredData.find(d => d.date === hoveredDate);
+      const point = filteredData.find((d) => d.date === hoveredDate);
       if (point) return point;
     }
-    return filteredData.length > 0 ? filteredData[filteredData.length - 1] : null;
+    return filteredData.length > 0
+      ? filteredData[filteredData.length - 1]
+      : null;
   }, [filteredData, hoveredDate]);
 
   return (
     <Card className="pt-0 py-7 border-0 gap-0">
       <CardHeader className="flex flex-col  gap-4 sm:flex-row sm:items-center sm:gap-2 sm:space-y-0">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardDescription className="text-[18px]">
-            Alpha vault
-          </CardDescription>
+          <CardDescription className="text-[18px]">Alpha vault</CardDescription>
           <CardTitle className="text-[32px]">Price chart</CardTitle>
         </div>
         <div className="flex bg-[#F3F5FA] rounded-[15px] p-[3px] gap-[3px] ml-auto">
           {[
-            { label: 'Month', value: '30d' },
-            { label: 'Week', value: '7d' },
-            { label: 'Day', value: '1d' }, // Map 'Day' to something visually sensible, e.g., 1 day or similar logic
+            { label: "Month", value: "30d" },
+            { label: "Week", value: "7d" },
+            { label: "Day", value: "1d" }, // Map 'Day' to something visually sensible, e.g., 1 day or similar logic
           ].map((range) => {
             const isActive = timeRange === range.value;
             return (
               <button
                 key={range.value}
-                onClick={() => setTimeRange(range.value)}
+                onClick={() =>
+                  onTimeRangeChange && onTimeRangeChange(range.value)
+                }
                 className={`px-[18px] py-[11px] rounded-[12px] text-[16px] font-medium transition-colors ${
-                  isActive 
-                    ? "bg-[--Accent] text-white" 
+                  isActive
+                    ? "bg-[--Accent] text-white"
                     : "bg-transparent text-[#64748B] hover:bg-white"
                 }`}
-                style={isActive ? {
-                  background: 'var(--Accent, #008BF5)',
-                  boxShadow: '0px 6px 24px 0px #008BF54D, 0px -3px 7px 0px #FFFFFF75 inset'
-                } : undefined}
+                style={
+                  isActive
+                    ? {
+                        background: "var(--Accent, #008BF5)",
+                        boxShadow:
+                          "0px 6px 24px 0px #008BF54D, 0px -3px 7px 0px #FFFFFF75 inset",
+                      }
+                    : undefined
+                }
               >
                 {range.label}
               </button>
-            )
+            );
           })}
         </div>
       </CardHeader>
@@ -295,12 +324,15 @@ export function ChartAreaInteractive() {
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
         >
-          <AreaChart 
-            data={filteredData} 
+          <AreaChart
+            ref={charRef}
+            data={filteredData}
             margin={{ right: 40, left: 0, top: 20, bottom: 0 }}
-            onMouseMove={(e) => {
-              if (e && e.activePayload && e.activePayload.length > 0) {
-                setHoveredDate(e.activePayload[0].payload.date);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onMouseMove={(e: any) => {
+              console.log(e);
+              if (e && e.activeLabel) {
+                setHoveredDate(e.activeLabel);
               }
             }}
           >
@@ -318,7 +350,11 @@ export function ChartAreaInteractive() {
                 />
               </linearGradient>
             </defs>
-            <CartesianGrid vertical={false} strokeDasharray="2 10" stroke="#BEC5E0" />
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="2 10"
+              stroke="#BEC5E0"
+            />
             <XAxis
               dataKey="date"
               tickLine={false}
@@ -326,8 +362,8 @@ export function ChartAreaInteractive() {
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
-                const date = new Date(value)
-                return `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`
+                const date = new Date(value);
+                return `${date.getDate().toString().padStart(2, "0")}.${(date.getMonth() + 1).toString().padStart(2, "0")}.${date.getFullYear()}`;
               }}
             />
             <YAxis
@@ -342,8 +378,8 @@ export function ChartAreaInteractive() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    const date = new Date(value)
-                    return `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`
+                    const date = new Date(value);
+                    return `${date.getDate().toString().padStart(2, "0")}.${(date.getMonth() + 1).toString().padStart(2, "0")}.${date.getFullYear()}`;
                   }}
                   indicator="dot"
                 />
@@ -369,5 +405,5 @@ export function ChartAreaInteractive() {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

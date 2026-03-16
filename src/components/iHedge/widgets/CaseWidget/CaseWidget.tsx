@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BookIcon, Button, ArrowIcon } from "@/components/iHedge/ui";
+import Link from "next/link";
 
 const CASE_ITEMS = Array(3).fill({
   title: "Our case is not a",
@@ -38,15 +39,17 @@ export const CaseWidget = () => {
             </div>
           </div>
         ))}
-        <Button
-          variant="ghost"
-          className="h-fit w-fit sm:pt-[5px] sm:pr-[5px] sm:pb-[4px] sm:pl-[34px] pt-[5px] pr-[5px] pb-[4px] pl-[34px] rounded-[20px] gap-[15px] bg-[#008BF5] shadow-[0px_10px_54px_0px_#008BF580] text-white hover:bg-[#008BF5]/90 hover:text-white"
-        >
-          Dashboard
-          <div className="p-[23px] bg-[#0074CC] rounded-[15px]">
-            <ArrowIcon className="w-6 h-6" />
-          </div>
-        </Button>
+        <Link href="/ihedge/preview/dashboard">
+          <Button
+            variant="ghost"
+            className="h-fit w-fit sm:pt-[5px] sm:pr-[5px] sm:pb-[4px] sm:pl-[34px] pt-[5px] pr-[5px] pb-[4px] pl-[34px] rounded-[20px] gap-[15px] bg-[#008BF5] shadow-[0px_10px_54px_0px_#008BF580] text-white hover:bg-[#008BF5]/90 hover:text-white"
+          >
+            Dashboard
+            <div className="p-[23px] bg-[#0074CC] rounded-[15px]">
+              <ArrowIcon className="w-6 h-6" />
+            </div>
+          </Button>
+        </Link>
       </div>
       <div className="max-w-[57.5svw] w-full border border-[#C4CFE9] rounded-[40px] p-[15px]">
         <Image

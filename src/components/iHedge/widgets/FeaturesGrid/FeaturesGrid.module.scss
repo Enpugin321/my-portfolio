@@ -20,7 +20,7 @@
 /* Grid for the 5 blocks */
 .gridParent {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
   width: 100%;
   align-items: stretch;
@@ -36,8 +36,8 @@
 /* >= lg (1024px) but < xl (1280px) */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .gridParent {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, auto);
   }
   .gridDiv1 {
     grid-area: 1 / 1 / 2 / 3;
@@ -59,7 +59,7 @@
 /* >= xl (1280px): grid shows only div3, div4, div5 in 3 columns */
 @media (min-width: 1280px) {
   .gridParent {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: auto;
   }
 }

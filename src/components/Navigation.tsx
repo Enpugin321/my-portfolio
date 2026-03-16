@@ -19,7 +19,7 @@ export default function Navigation() {
       }`}
     >
       <div className="text-xl font-extrabold tracking-tighter">
-        CD<span className="text-primary">.</span>
+        TM<span className="text-primary">.</span>
       </div>
       <div className="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase">
         <Link href="#work" className="hover:text-primary transition-colors">
@@ -32,9 +32,7 @@ export default function Navigation() {
           Contact
         </Link>
       </div>
-      <button className="bg-white text-black px-5 py-2 rounded-custom text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
-        Start Project
-      </button>
+      <div></div>
     </nav>
   );
 }
